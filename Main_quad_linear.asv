@@ -54,9 +54,9 @@ elseif nXy==4                 % 3D element
     elseif nTy==9
         [n,wpg,pospg,N,dNdxi] = C3D8 ;  %hexahedral linear
     elseif nTy==11
-        [n,wpg,pospg,N,dNdxi] = C3D10 ; %
+        [n,wpg,pospg,N,dNdxi] = C3D10 ; %tetrahedral quadratic
     elseif nTy==21
-        [n,wpg,pospg,N,dNdxi] = C3D20;
+        [n,wpg,pospg,N,dNdxi] = C3D20;  %hexhedral quadratic
     end
 end
     
@@ -74,8 +74,8 @@ end
 [K,f] = CreateMatrix(X(:,2:end),T(:,2:end),pospg,wpg,N,dNdxi);
 
 % BOUNDARY CONDITIONS
-nodes_inlet = input('INLET nodes:');            % INLET Nodes 
-nodes_outlet = input('OUTLET nodes:');          % Nodes on the boundary x=1
+nodes_inlet = input('INLET nodes (e.g. C2D4: [1 80 79 78 77 76 75 14]):');            % INLET Nodes  
+nodes_outlet = input('OUTLET nodes (e.g C2D4: [247 246 10 9 8 7 6 5 ]):');          % Nodes on the boundary x=1
 
 %nodes_y1 = [ny*(nx+1)+nx:-1:ny*(nx+1)+1]' ; % Nodes on the boundary y=1
 %nodes_x0 = [(ny-1)*(nx+1)+1:-(nx+1):nx+2]'; % Nodes on the boundary x=0
@@ -89,11 +89,13 @@ nodes_outlet = input('OUTLET nodes:');          % Nodes on the boundary x=1
 %Dirichlet Boundary Conditions
 %
 % INLET: nodes on which solution is u=1
-nodesDir1 = [nodes_inlet];
+nodesDir1 = [nodes_inlet]';
+
 % OUTLET: nodes on which solution is u=0
-nodesDir0 = [nodes_outlet ];
+nodesDir0 = [nodes_outlet]';
+
 % Boundary condition matrix
-C = [nodesDir1, ones(length(nodesDir1),1); nodesDir0, zeros(length(nodesDir0),1)]
+C = [nodesDir1,ones(length(nodesDir1),1); nodesDir0,zeros(length(nodesDir0),1)]
 
 ndir = size(C,1);
 neq = size(f,1);
@@ -128,6 +130,10 @@ Temp = sol(1:neq);
 multip = sol(neq+1:end);
 
 % POSTPROCESS
+if 
+else if 
+geo2D_vtk2;
+
 % figure(2), clf
 % [xx,yy,sol] = MatSol(X,nx,ny,Temp);
 % % surface(xx,yy,sol,'FaceColor',[1,1,1]);

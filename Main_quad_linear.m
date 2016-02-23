@@ -130,6 +130,8 @@ Temp = sol(1:neq);
 multip = sol(neq+1:end);
 
 % POSTPROCESS
+if 
+else if 
 geo2D_vtk2;
 
 % figure(2), clf

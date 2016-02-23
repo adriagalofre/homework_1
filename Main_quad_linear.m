@@ -130,9 +130,41 @@ Temp = sol(1:neq);
 multip = sol(neq+1:end);
 
 % POSTPROCESS
-if 
-else if 
-geo2D_vtk2;
+   if nXy==3                     % 2D element
+    if nTy==4        
+       geo2D_vtk2;  %triangular linear
+    elseif nTy==5
+       geo2D_vtk2;  %quad linear
+    elseif nTy==7
+         geo2D_vtk2;  %triangular quadratic
+    elseif nTy==9
+       geo2D_vtk2;  %quad quadratic
+    elseif nTy==10
+      geo2D_vtk2;
+    end
+
+elseif nXy==4                 % 3D element
+    if nTy==5        
+         geo2D_vtk2;  %tetrahedral linear
+    elseif nTy==9
+         geo2D_vtk2;  %hexahedral linear
+    elseif nTy==11
+         geo2D_vtk2; %tetrahedral quadratic
+    elseif nTy==21
+         geo2D_vtk2;  %hexhedral quadratic
+    end
+end
+       
+    end
+    
+        
+        
+        
+        
+        
+        
+        
+
 
 % figure(2), clf
 % [xx,yy,sol] = MatSol(X,nx,ny,Temp);

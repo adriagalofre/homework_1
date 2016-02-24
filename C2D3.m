@@ -21,12 +21,10 @@ nodes=3;
 %================= SHAPE FUNCTIONS ==================================
 %
 %        Nij: Shape functions of the Int Point i [4x4] Ni [4x1]
-N=zeros(n,n);
-for i1=1:n      
-       N(i1,1) = xi(i1,1);
-       N(i1,2) = xi(i1,2);
-       N(i1,3) = 1.-xi(i1,1)-xi(i1,2); 
-end
+N=zeros(nodes,1);
+       N(1) = xi(1);
+       N(2) = xi(2);
+       N(3) = 1.-xi(1)-xi(2);
 %
 %================= SHAPE FUNCTION DERIVATIVES ======================
 %

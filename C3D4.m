@@ -18,32 +18,29 @@ nodes=4;
          xi(2,1) = 0.25;
          xi(3,1) = 0.25;
          
-         w = 1./6.;
+         w(1) = 1./6.;
 %
 %================= SHAPE FUNCTIONS ==================================
 %
 %        Nij: Shape functions of the Int Point i [4x4] Ni [4x1]
 
-N=zeros(n,n);
-for i1=1:n
-       N(i1,1) = xi(i1,1);
-       N(i1,2) = xi(i1,2);
-       N(i1,3) = xi(i1,3);
-       N(i1,4) = 1.-xi(i1,1)-xi(i1,2)-xi(i1,3);
-end
+N=zeros(nodes,1);
+       N(1) = xi(1);
+       N(2) = xi(2);
+       N(3) = xi(3);
+       N(4) = 1.-xi(1)-xi(2)-xi(3);
+
 %
 %================= SHAPE FUNCTION DERIVATIVES ======================
 %
 %        Nij,r: Dev of shape functions of the Int Point i [4x8]
 %        [2*i-1 2*i] => dNi,r [4x2]
-dNdxi = zeros(ncoord*n,nodes);
-for i1=1:n
-       dNdxi(i1*3-2,1) = 1.;
-       dNdxi(i1*3-1,2) = 1.;
-       dNdxi(i1*3,3) = 1.;
-       dNdxi(i1*3-2,4) = -1.;
-       dNdxi(i1*3-1,4) = -1.;
-       dNdxi(i1*3,4) = -1.;
-end
+dNdxi = zeros(4,4);
+       dNdxi(1,1) = 1.;
+       dNdxi(2,2) = 1.;
+       dNdxi(3,3) = 1.;
+       dNdxi(4,1) = -1.;
+       dNdxi(4,2) = -1.;
+       dNdxi(4,3) = -1.;
 end
 %

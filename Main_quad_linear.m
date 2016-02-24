@@ -23,10 +23,11 @@ diffusion = 1;
 %X= load ('nodes');
 %T= load ('elments');
 
-X= load ('nodes_2D_quad_linear.dat');
-T= load ('elm_2D_quad_linear.dat');
+X= load ('nodes_2D_quad_quad.dat');
+T= load ('elm_2D_quad_quad.dat');
 [nXi,nXy]=size(X);
 [nTi,nTy]=size(T);
+
 
 %ELEMENT TYPE
 %elmtype=input('Enter element type_1:Triangulars,2:Quadrilaterals,3:Tetrahedrals,4:Hexhahedrals  ');
@@ -48,15 +49,20 @@ if nXy==3                     % 2D element
         [n,wpg,pospg,N,dNdxi] = C2D9 ;
     end
 
-elseif nXy==4                 % 3D element
-    if nTy==5        
-        [n,wpg,pospg,N,dNdxi] = C3D4 ;  %tetrahedral linear
+elseif nXy==4 % 3D element
+   
+    if nTy==5  
+        
+        [n,wpg,pospg,N,dNdxi] = C3D4;  %tetrahedral linear
     elseif nTy==9
-        [n,wpg,pospg,N,dNdxi] = C3D8 ;  %hexahedral linear
+        [n,wpg,pospg,N,dNdxi] = C3D8;  %hexahedral linear
+                           
     elseif nTy==11
-        [n,wpg,pospg,N,dNdxi] = C3D10 ; %tetrahedral quadratic
+        [n,wpg,pospg,N,dNdxi] = C3D10;  %tetrahedral quadratic
+        disp('Here');
     elseif nTy==21
         [n,wpg,pospg,N,dNdxi] = C3D20;  %hexhedral quadratic
+        disp('Here');
     end
 end
     
@@ -130,32 +136,32 @@ Temp = sol(1:neq);
 multip = sol(neq+1:end);
 
 % POSTPROCESS
-   if nXy==3                     % 2D element
+   if nXy==3         % 2D element
     if nTy==4        
-       geo2D_vtk2;  %triangular linear
+       geo2D3_vtk2;  %triangular linear
     elseif nTy==5
-       geo2D_vtk2;  %quad linear
+       geo2D4_vtk2;  %quad linear
     elseif nTy==7
-         geo2D_vtk2;  %triangular quadratic
+       geo2D6_vtk2;  %triangular quadratic
     elseif nTy==9
-       geo2D_vtk2;  %quad quadratic
+       geo2D8_vtk2;  %quad quadratic
     elseif nTy==10
-      geo2D_vtk2;
+      geo2D9_vtk2;
     end
 
-elseif nXy==4                 % 3D element
+elseif nXy==4         % 3D element
     if nTy==5        
          geo2D_vtk2;  %tetrahedral linear
     elseif nTy==9
          geo2D_vtk2;  %hexahedral linear
     elseif nTy==11
-         geo2D_vtk2; %tetrahedral quadratic
+         geo2D_vtk2;  %tetrahedral quadratic
     elseif nTy==21
          geo2D_vtk2;  %hexhedral quadratic
     end
 end
        
-    end
+
     
         
         
